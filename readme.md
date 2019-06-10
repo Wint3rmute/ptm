@@ -1,4 +1,4 @@
-# Kolos 1 Baczek
+# Kolos 1
 
 ### Podstawowe tryby pracy portu równoległego
 Dla układu Intel 8255 z dwoma 8-bitowymi portami PA i PB
@@ -51,7 +51,7 @@ Krótki wstęp - przetworzenie każdego rozkazu dzieli się na kilka etapów, re
 todo obrazek
 
 
-# Kolos 2 Adam
+# Kolos 2
 
 ### Omów działania, jakie podejmuje procesor po przyjęciu zgłoszenia przerwania
 * Identyfikuje linie urządenia zgłaszającego przerwanie
