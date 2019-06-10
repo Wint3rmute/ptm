@@ -1,6 +1,6 @@
 # Kolos 1
 
-### Podstawowe tryby pracy portu równoległego
+### 1. Podstawowe tryby pracy portu równoległego
 Dla układu Intel 8255 z dwoma 8-bitowymi portami PA i PB
 
 * **Tryb 0** – przeznaczony do realizacji bezwarunkowych operacji I/O.
@@ -10,7 +10,7 @@ Dla układu Intel 8255 z dwoma 8-bitowymi portami PA i PB
 * **Tryb 2** - przeznaczony do operacji IO z przerwaniem, tylko przez port A, przy dwóch kierunkach przesyłu danych
 
 
-### Omów mechanizmy odświeżania DRAM
+### 2. Omów mechanizmy odświeżania DRAM
 Odświeżanie DRAM jest konieczne przez wzgląd na sposób przechowywania danych - trzymane są w kondensatorach, które z czasem tracą ładunek. Odświeżanie jest dodatkową pracą dla procesora.
 
 *Słowniczek:*
@@ -22,7 +22,7 @@ Mamy 3 tryby odświeżania:
 * **Ukryte** - użycie obu linii CAS i RAS, najpierw następuje synchronizacja wiersza, potem kolumny
 * **CAS przed RAS** - gdy brak sygnału na CAS przed RAS, DRAM ignoruje adresy i używa wewnętrznego licznika, aby odświeżyć
 
-### Omów organizacje pamięci cache i mechanizmy zastępowania danych w pamięci cache
+### 3. Omów organizacje pamięci cache i mechanizmy zastępowania danych w pamięci cache
 *Słowniczek:*
 *Cache - kurewsko szybka i kurewsko droga pamięććć*
 *Hit or Memes ratio - Skuteczność Cache - im częściej szukana w RAMie komórka znajduje się już w cache'u, tym lepiej* TODO
@@ -44,7 +44,7 @@ Czyli trzymamy w cache'u zawartość komórki oraz licznik i, który mówi, jak 
 TODO JEST WIĘCEJ O ZAPISIE DO PAMIĘCI GŁÓWNEJ GDY WYLATUJE Z CACHE
 
 
-### Omów zasadę przetwarzania potokowego
+### 4. Omów zasadę przetwarzania potokowego
 Przetwarzanie potokowe - *pipelining*.
 Krótki wstęp - przetworzenie każdego rozkazu dzieli się na kilka etapów, realizowanych przez kilka różnych układów. To trochę jak przekazywanie worka z piachem w szeregu ludzi. Można czekać, aż jeden worek przejdzie przez cały łańcuszek i rozkaz się skończy, albo można przekazywać worek za workiem, żeby każdy miał ciągle coś do roboty.
 
@@ -53,19 +53,19 @@ todo obrazek
 
 # Kolos 2
 
-### Omów działania, jakie podejmuje procesor po przyjęciu zgłoszenia przerwania
+### 1. Omów działania, jakie podejmuje procesor po przyjęciu zgłoszenia przerwania
 * Identyfikuje linie urządenia zgłaszającego przerwanie
 * Zamiętuje stan procesora poprzez przeniesienie rejestrów PSW na stos 
 * Wykonywanie procedury obsługi znajduącego się pod konkretnym adresem( zeleżnym od urządzenia które zgłosiło przerwanie)
-### Omów cykl zapisu i odczytu DRAMu
+### 2. Omów cykl zapisu i odczytu DRAMu
 * Cykl odczytu - Pierwszą fazą żądania odczytu z pamięci stanowi pobranie adresu wiersza, w którym znajduje się komórka i zatwierdzeniu tego adresu, po ustabilizowaniu się stanu szyny adresowej sygnałem RAS (Row Address Strobe). Następnie na szynę adresową pamięci podawany jest adres kolumny zawierającej żądaną komórkę, który zatwierdzany jest sygnałem CAS (Column Address Strobe). Odstęp czasu pomiędzy sygnałami CAS i RAS wynika z konstrukcji pamięci i musi zapewnić czas nie tylko na ustabilizowanie się stanu szyny adresowej, lecz także na wysterowanie wiersza do odczytu.
 
 * Cykl zapisu - pobranie adresu pod który będziemy zapisywać, synchronizacja RAS i CAS, wyzwolenie sygału WR zapisującego dane
 
-### Omów zasady transmisji asynchronicznej i synchronicznej relizowanej portem szeregowym
+### 3. Omów zasady transmisji asynchronicznej i synchronicznej relizowanej portem szeregowym
 * transmisja asynchroniczna -  częstotliwość zegara k razy większa od częstotliwości nadawania, długość znaku to 5-8 bitów, możliwa jest kontrola poprawności transmisji za pomocą bitu parzystości. Synchronizacja na podstawie przerwy w nadawaniu.
 * transmisja synchroniczna - częstotliwość k razy większa od nadawnia, ilość znaków synchronizacji to 1 lub 2. Synchronizacja może być zewnętrzna lub wewnętrzna.
-## Omów architekturę SIMD
+### 4. Omów architekturę SIMD
 Architektury systoliczne, to architektury specjalizowane do implementacji operacji macierzowych, przetwarzania
 sygnałów i obrazów w czasie rzeczywistym. Globalnie synchronizowane procesory elementarne są połączone w
 regularną siatkę. Każdy procesor jest połączony tylko z najbliższymi sąsiadami. Struktura wewnętrzna procesora,
@@ -99,24 +99,24 @@ która umożliwia adresowanie w przestrzeni 4 GB. Do komunikacji z innymi transp
 cztery kanały DMA
 
 # Kolos 3
-### Omów przetwarzanie potokowe
+### 1. Omów przetwarzanie potokowe
 ###### Było wyżej
 
-### Specjalne tryby DRAM
+### 2. Specjalne tryby DRAM
 * odczyt-modyfikacja-zapis – adres kolumny nie musi zostać zestrobowany, można natomiast użyć adresu
 z impulsów /CAS niskiego potencjału i następnie dokonać zapisu w przeciągu kilku nanosekund.
 * tryb stronicowy – wiersz DRAM pozostaje otwarty przez utrzymywanie niskiego potencjału /RAS w trakcie
 trwania odczytów bądź zapisów odosobnionym impulsem CAS.
 * tryb nakładkowy – cztery impulsy CAS mają dostęp do czterech sekwencyjnych lokacji w wierszu.
 
-### Charakterystyka koprocesora
+### 3. Charakterystyka koprocesora
 
-### Omów czym jest SIMD
+### 4. Omów czym jest SIMD
 
 
 
 # Kolos 4
-### DMA: rola, tryby pracy
+### 1. DMA: rola, tryby pracy
 **DMA - Direct Memory Access** - służy do tego, żeby procesor nie musiał zajmować się prostymi głupotami, w rodzaju przesyłania danych z jednego urządzenia do drugiego.
 
 Przykładowo, gdy chcemy z pamięci wysłać coś przezmodem, procesor musiałby pobrać te dane z pamięci i wysłać do modemu. DMA robi to za niego, dzięki czemu procesor może zająć się w tym momencie czymś innym.
@@ -128,24 +128,24 @@ DMA nie jest od myślenia, jest od prostych zadań. Procesor wydaje rozkaz, DMA 
 * **Wykradanie taktów** - Procesor daje DMA dostęp do magistrali danych, kiedy chce. DMA musi czekać, dopóki procesor da mu zielonego światła
 * **Zgodnie z zapotrzebowaniem** - Ustalany jest rozmiar "bloków", na jakie DMA podzieli dane do przesłania. Jeśli po przesłaniu pojednynczego bloku procesor nie upomina się o dostęp do magistrali, przesyłany będzie kolejny blok i tak dalej
 
-### Odczyt ROM
+### 2. Odczyt ROM
 Pierwszą fazą jest ustawienie adresu zczytanego w strukturze pamięci (linie adresowe). Uaktywnienie linii MEMREQ na  podstawie  adresu,  a  także  linii  CE  (logicznego  wyboru  danego  układu  pamiętającego) – stanem niskim. Następnie uaktywnia się linię odczytu i pobiera dane.
 
 
-### Zapis SRAM
-### Adresowanie współbieżne i izolowane
-### Tryby pracy układu czasowo-licznikowego
+### 3. Zapis SRAM
+### 4. Adresowanie współbieżne i izolowane
+### 5. Tryby pracy układu czasowo-licznikowego
 
 # Kolos 5 (to jakaś grupa śmierci)
-### Omów przetwarzanie potokowe
+### 1. Omów przetwarzanie potokowe
 ###### Było wyżej
-### Omów specjalne tryby pracy DRAM
+### 2. Omów specjalne tryby pracy DRAM
 ###### Było wyżej
-### Charakterystyka koprocesora MIMD
+### 3. Charakterystyka koprocesora MIMD
 
 # Kolos 6
-### Odczyt ROM i zapis RAM
-### tryby czasowo licznikowe
-### DMA
-### Współadresowanie i adresowanie izolowane 
+### 1. Odczyt ROM i zapis RAM
+### 2. tryby czasowo licznikowe
+### 3. DMA
+### 4. Współadresowanie i adresowanie izolowane 
 ###### Było wyżej
