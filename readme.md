@@ -1,4 +1,4 @@
-# Kolos 1 Baczek
+# Kolos 1
 
 ### Podstawowe tryby pracy portu równoległego
 Dla układu Intel 8255 z dwoma 8-bitowymi portami PA i PB
@@ -48,10 +48,16 @@ TODO JEST WIĘCEJ O ZAPISIE DO PAMIĘCI GŁÓWNEJ GDY WYLATUJE Z CACHE
 Przetwarzanie potokowe - *pipelining*.
 Krótki wstęp - przetworzenie każdego rozkazu dzieli się na kilka etapów, realizowanych przez kilka różnych układów. To trochę jak przekazywanie worka z piachem w szeregu ludzi. Można czekać, aż jeden worek przejdzie przez cały łańcuszek i rozkaz się skończy, albo można przekazywać worek za workiem, żeby każdy miał ciągle coś do roboty.
 
+Jakie z tym problemy? Za każdym razem, gdy w programie jest `if`, program się rozgałęzia i część pracy musi zostać cofnięta. Są na to 3 sposoby:
+
+* Przeczekać – opóźnienie 3 jednostki dla skoku bezwarunkowego, 5 dla warunkowego
+* Nie martwić się – procesor ciągnie kolejne rozkazy, nie zwracając uwagi na skoki (w większości przypadków rozkaz skoku się nie wykonuje)
+* Być czujnym – rozwiązanie drogie, bo wymaga specjalnej konstrukcji procesora. Gdy procesor w kroku drugim dowiaduje się, że będzie skok, wykonuje jednocześnie algorytm potokowy oraz pobiera i buforuje rozkazy z miejsca, gdzie może być skok. Jeśli się okaże, że skok się wykonał procesor dekoduje rozkazy już pobrane
+
 todo obrazek
 
 
-# Kolos 2 Adam
+# Kolos 2
 
 ### Omów działania, jakie podejmuje procesor po przyjęciu zgłoszenia przerwania
 * Identyfikuje linie urządenia zgłaszającego przerwanie
@@ -152,6 +158,13 @@ W zapisie do pamięci RAM adres i wybór układu pozostaje jak  w  odczycie. Zam
 * **adresowanie izolowane** - rejestry urządzenia dostępne są w **odrębnej przestrzeni adresowej** zwanej przestrzenią adresową wejścia/wyjścia lub przestrzenią portów; do przesyłania danych do i z takich układów służą rozkazy **OUT** i **IN**.
 
 ### Tryby pracy układu czasowo-licznikowego
+Tryby pracy:
+* Tryb 0 – interrupt on terminal count, odliczanie jednorazowe
+* Tryb 1 – programmable one-shot, generowanie jednego impulsu
+* Tryb 2 – rate generator, dzielnik częstotliwości
+* Tryb 3 – generator z symetrycznym sygnałem wyjścia (jak w trybie 2, ale częstotliwość jest dzielona przezdwa), generator fali prostokątnej
+* Tryb 4 – impuls przerzutnika, sterowany programowo
+* Tryb 5 – impuls przerzutnika, sterowany sprzętowo
 
 # Kolos 5 (to jakaś grupa śmierci)
 ### Omów przetwarzanie potokowe
